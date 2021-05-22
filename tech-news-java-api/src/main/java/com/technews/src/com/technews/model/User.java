@@ -81,7 +81,7 @@ public class User implements Serializable {
         this.loggedIn = loggedIn;
     }
 
-    public List<com.technews.model.Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
