@@ -1,4 +1,4 @@
-package com.technews.model;
+package main.java.com.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

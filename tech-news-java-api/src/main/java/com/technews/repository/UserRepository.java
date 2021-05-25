@@ -1,6 +1,6 @@
-package com.technews.repository;
+package main.java.com.technews;
 
-import com.technews.model.User;
+import main.java.com.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

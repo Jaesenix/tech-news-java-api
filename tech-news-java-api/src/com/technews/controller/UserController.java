@@ -1,5 +1,9 @@
 package com.technews.controller;
 
+import main.java.com.model.Post;
+import main.java.com.model.User;
+import main.java.com.technews.UserRepository;
+import main.java.com.technews.repository.VoteRepository;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -8,17 +12,17 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    com.technews.repository.UserRepository repository;
+    UserRepository repository;
 
     @Autowired
-    com.technews.repository.VoteRepository voteRepository;
+    VoteRepository voteRepository;
 
     @GetMapping("/api/users")
-    public List<com.technews.model.User> getAllUsers() {
-        List<com.technews.model.User> userList = repository.findAll();
-        for (com.technews.model.User u : userList) {
-            List<com.technews.model.Post> postList = u.getPosts();
-            for (com.technews.model.Post p : postList) {
+    public List<User> getAllUsers() {
+        List<User> userList = repository.findAll();
+        for (User u : userList) {
+            List<Post> postList = u.getPosts();
+            for (Post p : postList) {
                 p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
             }
         }
@@ -26,10 +30,10 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{id}")
-    public com.technews.model.User getUserById(@PathVariable Integer id) {
-        com.technews.model.User returnUser = repository.getOne(id);
-        List<com.technews.model.Post> postList = returnUser.getPosts();
-        for (com.technews.model.Post p : postList) {
+    public User getUserById(@PathVariable Integer id) {
+        User returnUser = repository.getOne(id);
+        List<Post> postList = returnUser.getPosts();
+        for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
         }
 
@@ -37,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/api/users")
-    public com.technews.model.User addUser(@RequestBody com.technews.model.User user) {
+    public User addUser(@RequestBody User user) {
         // Encrypt password
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         repository.save(user);
@@ -45,8 +49,8 @@ public class UserController {
     }
 
     @PutMapping("/api/users/{id}")
-    public com.technews.model.User updateUser(@PathVariable int id, @RequestBody com.technews.model.User user) {
-        com.technews.model.User tempUser = repository.getOne(id);
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        User tempUser = repository.getOne(id);
 
         if (!tempUser.equals(null)) {
             user.setId(tempUser.getId());

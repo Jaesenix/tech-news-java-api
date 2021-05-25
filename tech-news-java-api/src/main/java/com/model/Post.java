@@ -1,4 +1,4 @@
-package com.technews.model;
+package main.java.com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;

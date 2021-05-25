@@ -1,7 +1,7 @@
 package com.technews.controller;
 
-import com.technews.model.Comment;
-import com.technews.repository.CommentRepository;
+import main.java.com.model.Comment;
+import main.java.com.technews.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
